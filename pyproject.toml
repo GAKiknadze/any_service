@@ -1,0 +1,9 @@
+[project]
+name = "any-service"
+version = "0.1.0"
+description = "A generalized web service that can become a template for further development on Python"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dishka>=1.6.0",
+]
