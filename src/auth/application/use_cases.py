@@ -76,7 +76,7 @@ class RegisterUseCase(AuthUseCase):
                 raise exceptions.ContactAlreadyExistsExc()
         except exceptions.UserNotFoundExc:
             ...
-        
+
         password_hash = self.__password_service.hash_password(request.password)
 
         user = await self.__auth_user_repository.create(
@@ -194,3 +194,17 @@ class LogoutUseCase(AuthUseCase):
         await self.__auth_session_repository.set_login(session.session_id)
 
         await self.__auth_session_repository.delete(session.session_id)
+
+
+class GetSessionsUseCase(AuthUseCase):
+    def __init__(
+        self,
+        auth_session_repository: repositories.AuthSessionRepository,
+    ):
+        self.__auth_session_repository = auth_session_repository
+
+    async def execute(
+        self, request: dtos.SessionsRequestDTO
+    ) -> dtos.SessionsResponseDTO:
+        sessions = await self.__auth_session_repository.get_list(request.user_id)
+        return dtos.SessionsResponseDTO.model_validate(sessions, from_attributes=True)

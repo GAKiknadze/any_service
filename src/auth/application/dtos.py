@@ -1,5 +1,7 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, RootModel
 from uuid import UUID
+from typing import List
+from datetime import datetime
 
 
 class LoginRequestDTO(BaseModel):
@@ -30,3 +32,17 @@ class TokenResponseDTO(BaseModel):
 
 class UserResponseDTO(BaseModel):
     user_id: UUID
+
+
+class SessionsRequestDTO(BaseModel):
+    user_id: UUID
+
+
+class SessionDTO(BaseModel):
+    session_id: UUID
+    user_id: UUID
+    created_at: datetime
+    last_login: datetime | None = None
+
+
+SessionsResponseDTO = RootModel[List[SessionDTO]]
