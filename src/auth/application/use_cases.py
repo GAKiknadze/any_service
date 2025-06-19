@@ -1,8 +1,9 @@
-from ..domain import repositories, services, exceptions, entities
-from . import dtos
 from abc import ABC, abstractmethod
-from uuid import uuid4
 from datetime import datetime, timezone
+from uuid import uuid4
+
+from ..domain import entities, exceptions, repositories, services
+from . import dtos
 
 
 class AuthUseCase(ABC):
@@ -27,7 +28,7 @@ class LoginUseCase(AuthUseCase):
     async def execute(self, request: dtos.LoginRequestDTO) -> dtos.TokenResponseDTO:
         user = await self.__auth_user_repository.get_by_email(request.email)
 
-        if not await self.__password_service.verify_password(
+        if not self.__password_service.verify_password(
             request.password, user.password_hash
         ):
             raise exceptions.InvalidCredentialsExc()
@@ -45,7 +46,7 @@ class LoginUseCase(AuthUseCase):
             user.id, session.session_id
         )
         refresh_token, refresh_exp = self.__token_service.create_refresh_token(
-            user.id, session.id
+            user.id, session.session_id
         )
 
         return dtos.TokenResponseDTO(

@@ -1,16 +1,16 @@
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, delete
-from uuid import UUID
+from datetime import datetime, timezone
 from typing import List
+from uuid import UUID
 
-from src.auth.domain.entities import (
-    AuthUser as DomainAuthUser,
-    AuthSession as DomainAuthSession,
-)
-from .models import AuthUser as DBAuthUser, AuthSession as DBAuthSession
+from sqlalchemy import delete, select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from src.auth.domain.entities import AuthSession as DomainAuthSession
+from src.auth.domain.entities import AuthUser as DomainAuthUser
 from src.auth.domain.exceptions import UserNotFoundExc
 
-from datetime import datetime, timezone
+from .models import AuthSession as DBAuthSession
+from .models import AuthUser as DBAuthUser
 
 
 def _dbuser_to_domain(db_user: DBAuthUser) -> DomainAuthUser:

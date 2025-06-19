@@ -1,5 +1,6 @@
 from dishka import Provider, Scope, provide
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from .database import create_async_engine_and_sessionmaker
 
 
@@ -12,6 +13,6 @@ class DatabaseProvider(Provider):
         self.provide(self._session, scope=Scope.REQUEST)
 
     @provide
-    async def _session(self) -> AsyncSession:
+    async def _session(self) -> AsyncSession:  # type: ignore[misc]
         async with self.session_maker() as session:
             yield session

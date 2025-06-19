@@ -1,10 +1,11 @@
 from dishka import Provider, Scope, provide
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.auth.infrastructure.services import PasswordServiceImpl, TokenServiceImpl
+
 from src.auth.infrastructure.database.repositories import (
-    SQLAlchemyAuthUserRepository,
     SQLAlchemyAuthSessionRepository,
+    SQLAlchemyAuthUserRepository,
 )
+from src.auth.infrastructure.services import PasswordServiceImpl, TokenServiceImpl
 
 
 class AuthProvider(Provider):
