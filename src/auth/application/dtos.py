@@ -46,3 +46,7 @@ class SessionDTO(BaseModel):
 
 
 SessionsResponseDTO = RootModel[List[SessionDTO]]
+
+
+class DeleteSessionRequestDTO(BaseModel):
+    session_id: UUID

@@ -208,3 +208,14 @@ class GetSessionsUseCase(AuthUseCase):
     ) -> dtos.SessionsResponseDTO:
         sessions = await self.__auth_session_repository.get_list(request.user_id)
         return dtos.SessionsResponseDTO.model_validate(sessions, from_attributes=True)
+
+
+class DeleteSessionUseCase(AuthUseCase):
+    def __init__(
+        self,
+        auth_session_repository: repositories.AuthSessionRepository,
+    ):
+        self.__auth_session_repository = auth_session_repository
+
+    async def execute(self, request: dtos.DeleteSessionRequestDTO) -> None:
+        await self.__auth_session_repository.delete(request.session_id)
