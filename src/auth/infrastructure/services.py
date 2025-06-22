@@ -2,10 +2,11 @@ from datetime import datetime, timedelta, timezone
 from typing import Tuple
 from uuid import UUID
 
-from jose import JWTError, jwt
+from jose import jwt
 from passlib.context import CryptContext
 
 from src.auth.domain.entities import AccessTokenData, RefreshTokenData
+from src.auth.domain.exceptions import InvalidCredentialsExc
 
 
 class PasswordServiceImpl:
@@ -62,20 +63,20 @@ class TokenServiceImpl:
         try:
             payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
             if payload.get("type") != "access":
-                raise JWTError("Invalid token type")
+                raise InvalidCredentialsExc("Invalid token type")
             user_id = UUID(payload["sub"])
             session_id = UUID(payload["sid"])
             return AccessTokenData(user_id=user_id, session_id=session_id)
-        except Exception as e:
-            raise JWTError("Invalid access token") from e
+        except Exception:
+            raise InvalidCredentialsExc("Invalid access token")
 
     def verify_refresh_token(self, token: str) -> RefreshTokenData:
         try:
             payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
             if payload.get("type") != "refresh":
-                raise JWTError("Invalid token type")
+                raise InvalidCredentialsExc("Invalid token type")
             user_id = UUID(payload["sub"])
             session_id = UUID(payload["sid"])
             return RefreshTokenData(user_id=user_id, session_id=session_id)
-        except Exception as e:
-            raise JWTError("Invalid refresh token") from e
+        except Exception:
+            raise InvalidCredentialsExc("Invalid refresh token")
