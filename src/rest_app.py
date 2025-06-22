@@ -13,19 +13,19 @@ from .common.interfaces.api import exception_handlers as common_exc_handlers
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    container = make_container(
-        DatabaseProvider("sqlite+aiosqlite3://db.sqlite3"),
-        AuthProvider("very_very_secret_key"),
-        FastapiProvider(),
-    )
-    setup_dishka(container=container, app=app)
-
     yield
 
     app.state.dishka_container.close()
 
 
 app = FastAPI(lifespan=lifespan)
+
+container = make_container(
+    DatabaseProvider("sqlite+aiosqlite:///temp.db"),
+    AuthProvider("very_very_secret_key"),
+    FastapiProvider(),
+)
+setup_dishka(container=container, app=app)
 
 # Common
 app.add_exception_handler(Exception, common_exc_handlers.any_exc_handler)
