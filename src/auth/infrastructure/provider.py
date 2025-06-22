@@ -1,6 +1,7 @@
 from dishka import Provider, Scope, provide
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.auth.domain import repositories, services
 from src.auth.infrastructure.database.repositories import (
     SQLAlchemyAuthSessionRepository,
     SQLAlchemyAuthUserRepository,
@@ -13,25 +14,22 @@ class AuthProvider(Provider):
         super().__init__()
         self.secret_key = secret_key
 
-        self.provide(self._password_service, scope=Scope.APP)
-        self.provide(self._token_service, scope=Scope.APP)
-        self.provide(self._auth_user_repo, scope=Scope.REQUEST)
-        self.provide(self._auth_session_repo, scope=Scope.REQUEST)
-
-    @provide
-    def _password_service(self) -> PasswordServiceImpl:
+    @provide(scope=Scope.APP)
+    async def _password_service(self) -> services.PasswordService:
         return PasswordServiceImpl()
 
-    @provide
-    def _token_service(self) -> TokenServiceImpl:
+    @provide(scope=Scope.APP)
+    async def _token_service(self) -> services.TokenService:
         return TokenServiceImpl(secret_key=self.secret_key)
 
-    @provide
-    def _auth_user_repo(self, session: AsyncSession) -> SQLAlchemyAuthUserRepository:
+    @provide(scope=Scope.REQUEST)
+    async def _auth_user_repo(
+        self, session: AsyncSession
+    ) -> repositories.AuthUserRepository:
         return SQLAlchemyAuthUserRepository(session)
 
-    @provide
-    def _auth_session_repo(
+    @provide(scope=Scope.REQUEST)
+    async def _auth_session_repo(
         self, session: AsyncSession
-    ) -> SQLAlchemyAuthSessionRepository:
+    ) -> repositories.AuthSessionRepository:
         return SQLAlchemyAuthSessionRepository(session)
