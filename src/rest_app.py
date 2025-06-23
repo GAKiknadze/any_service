@@ -4,9 +4,9 @@ from dishka import make_container
 from dishka.integrations.fastapi import FastapiProvider, setup_dishka
 from fastapi import FastAPI
 
-from .auth.infrastructure.provider import AuthProvider
-from .auth.interfaces.api import exception_handlers as auth_exc_handlers
-from .auth.interfaces.api import routers as auth_routers
+from src.auth.infrastructure.provider import AuthProvider
+from src.interfaces.api import exception_handlers as auth_exc_handlers
+from src.interfaces.api import routers as auth_routers
 from .common.infrastructure.providers import DatabaseProvider
 from .common.interfaces.api import exception_handlers as common_exc_handlers
 
