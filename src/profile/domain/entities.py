@@ -10,6 +10,6 @@ class UserInfo:
     last_name: str
     nick_name: str
     date_of_birth: date
-    avatar: str | None = None
     created_at: datetime
+    avatar: str | None = None
     updated_at: datetime | None = None

@@ -3,15 +3,12 @@ from uuid import uuid4
 
 from dishka import FromDishka
 
-from src.auth.application.dtos import RegisterRequestDTO
+from src.auth.application.dtos import RegisterRequestDTO, TokenResponseDTO
 from src.auth.application.use_cases import RegisterUseCase
 from src.profile.application.dtos import CreateUserInfoRequestDTO
 from src.profile.application.use_cases import CreateUserInfoUseCase
 
-from ..dtos.auth import (
-    RegistrationCompositeRequestDTO,
-    RegistrationCompositeResponseDTO,
-)
+from ..dtos.auth import RegistrationCompositeRequestDTO
 from .base import BaseUseCase
 
 
@@ -26,14 +23,14 @@ class RegistrationCompositeUseCase(BaseUseCase):
 
     async def execute(
         self, request: RegistrationCompositeRequestDTO
-    ) -> RegistrationCompositeResponseDTO:
+    ) -> TokenResponseDTO:
         user_id = uuid4()
         tokens = await self.__registration_use_case.execute(
             RegisterRequestDTO(
                 user_id=user_id, email=request.email, password=request.password
             )
         )
-        await self.__create_user_use_case(
+        await self.__create_user_use_case.execute(
             CreateUserInfoRequestDTO(
                 user_id=user_id,
                 first_name=request.first_name,
