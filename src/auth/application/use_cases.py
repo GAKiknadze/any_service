@@ -82,7 +82,7 @@ class RegisterUseCase(AuthUseCase):
 
         user = await self.__auth_user_repository.create(
             entities.AuthUser(
-                id=uuid4(),
+                id=request.user_id,
                 email=request.email,
                 password_hash=password_hash,
                 created_at=datetime.now(timezone.utc),

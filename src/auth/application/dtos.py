@@ -11,6 +11,7 @@ class LoginRequestDTO(BaseModel):
 
 
 class RegisterRequestDTO(BaseModel):
+    user_id: UUID
     email: EmailStr
     password: str
 

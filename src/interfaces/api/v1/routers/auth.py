@@ -2,12 +2,13 @@ from dishka.integrations.fastapi import FromDishka, inject
 from fastapi import APIRouter, Cookie, Depends, status
 from fastapi.responses import JSONResponse
 
+from src.application.dtos.auth import RegistrationCompositeRequestDTO
+from src.application.use_cases.auth import RegistrationCompositeUseCase
 from src.auth.application import dtos
 from src.auth.application.use_cases import (
     LoginUseCase,
     LogoutUseCase,
     RefreshTokenUseCase,
-    RegisterUseCase,
 )
 from src.auth.domain.exceptions import InvalidCredentialsExc
 
@@ -36,8 +37,8 @@ async def login(
 )
 @inject
 async def register(
-    request: dtos.RegisterRequestDTO,
-    use_case: FromDishka[RegisterUseCase],
+    request: RegistrationCompositeRequestDTO,
+    use_case: FromDishka[RegistrationCompositeUseCase],
 ):
     tokens = await use_case.execute(request)
 
