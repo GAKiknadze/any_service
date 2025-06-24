@@ -5,7 +5,7 @@ from dishka.integrations.fastapi import FastapiProvider, setup_dishka
 from fastapi import FastAPI
 
 from src.auth.infrastructure.provider import AuthProvider
-from src.common.infrastructure.providers import DatabaseProvider
+from src.infrastructure.providers import DatabaseProvider
 from src.interfaces.api import api_router, exception_handlers
 from src.profile.infrastructure.provider import ProfileProvider
 
