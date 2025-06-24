@@ -8,6 +8,15 @@ from src.auth.domain.exceptions import (
 )
 
 
+# Common
+async def any_exc_handler(req: Request, exc: Exception):
+    return JSONResponse(
+        content={"msg": "something wrong"},
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+    )
+
+
+# Auth
 async def contact_already_exists_exc_handler(
     req: Request, exc: ContactAlreadyExistsExc
 ):

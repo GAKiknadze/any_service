@@ -6,7 +6,6 @@ from fastapi import FastAPI
 
 from src.auth.infrastructure.provider import AuthProvider
 from src.common.infrastructure.providers import DatabaseProvider
-from src.common.interfaces.api import exception_handlers as common_exc_handlers
 from src.interfaces.api import api_router, exception_handlers
 from src.profile.infrastructure.provider import ProfileProvider
 
@@ -28,7 +27,7 @@ container = make_container(
 setup_dishka(container=container, app=app)
 
 # Common
-app.add_exception_handler(Exception, common_exc_handlers.any_exc_handler)
+app.add_exception_handler(Exception, exception_handlers.any_exc_handler)
 
 # Auth
 app.add_exception_handler(
