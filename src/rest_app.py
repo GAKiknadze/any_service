@@ -32,14 +32,15 @@ app.add_exception_handler(Exception, exception_handlers.any_exc_handler)
 # Auth
 app.add_exception_handler(
     exception_handlers.ContactAlreadyExistsExc,
-    exception_handlers.contact_already_exists_exc_handler,
+    exception_handlers.contact_already_exists_exc_handler,  # type: ignore[arg-type]
 )
 app.add_exception_handler(
     exception_handlers.InvalidCredentialsExc,
-    exception_handlers.invalid_credentials_exc_handler,
+    exception_handlers.invalid_credentials_exc_handler,  # type: ignore[arg-type]
 )
 app.add_exception_handler(
-    exception_handlers.UserNotFoundExc, exception_handlers.user_not_found_exc_handler
+    exception_handlers.UserNotFoundExc,
+    exception_handlers.user_not_found_exc_handler,  # type: ignore[arg-type]
 )
 
 # Connecting API router
