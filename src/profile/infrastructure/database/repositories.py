@@ -5,6 +5,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.profile.domain.entities import UserInfo as DomainUserInfo
+
 from .models import UserInfo as DBUserInfo
 
 
@@ -49,7 +50,9 @@ class SQLAlchemyUserInfoRepository:
             raise ValueError(f"UserInfo with id {user_id} not found")
         return _db_to_domain(db_user)
 
-    async def get_by_nick_name(self, value: str, offset: int = 0, limit: int = 50) -> List[DomainUserInfo]:
+    async def get_by_nick_name(
+        self, value: str, offset: int = 0, limit: int = 50
+    ) -> List[DomainUserInfo]:
         stmt = (
             select(DBUserInfo)
             .where(DBUserInfo.nick_name == value)
