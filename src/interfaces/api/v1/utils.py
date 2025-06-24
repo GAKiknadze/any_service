@@ -2,7 +2,7 @@ from fastapi.responses import JSONResponse
 
 from src.auth.application.dtos import TokenResponseDTO
 
-from .schemas import TokenResponse
+from .schemas.auth import TokenResponse
 
 
 def create_new_tokens_response(tokens: TokenResponseDTO) -> JSONResponse:
