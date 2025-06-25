@@ -2,9 +2,11 @@ import uuid
 from datetime import date, datetime
 
 from sqlalchemy import Date, DateTime, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-from src.infrastructure.database import Base
+
+class Base(DeclarativeBase):
+    pass
 
 
 class UserInfo(Base):

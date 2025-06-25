@@ -19,7 +19,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 container = make_container(
-    DatabaseProvider("sqlite+aiosqlite:///temp.db"),
+    DatabaseProvider("sqlite+aiosqlite:///temp.sqlite"),
     AuthProvider("very_very_secret_key"),
     ProfileProvider(),
     FastapiProvider(),
