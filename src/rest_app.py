@@ -5,6 +5,7 @@ from dishka.integrations.fastapi import FastapiProvider, setup_dishka
 from fastapi import FastAPI
 
 from src.auth.infrastructure.provider import AuthProvider
+from src.infrastructure.config import Settings
 from src.infrastructure.providers import DatabaseProvider
 from src.interfaces.api import api_router, exception_handlers
 from src.profile.infrastructure.provider import ProfileProvider
@@ -19,8 +20,8 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 container = make_container(
-    DatabaseProvider("sqlite+aiosqlite:///temp.sqlite"),
-    AuthProvider("very_very_secret_key"),
+    DatabaseProvider(database_url=Settings().db_uri),
+    AuthProvider(secret_key=Settings().secret_key),
     ProfileProvider(),
     FastapiProvider(),
 )
