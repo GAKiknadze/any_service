@@ -28,6 +28,7 @@ async def search_users(
     use_case: FromDishka[SearchUserInfoByNickNameUseCase],
     offset: int = 0,
     limit: int = 50,
+    _: UUID = Depends(get_user_id),
 ):
     req = SearchUserInfoByNickNameRequestDTO(
         nick_name=nick_name, offset=offset, limit=limit
@@ -40,6 +41,7 @@ async def search_users(
 async def get_user_info(
     user_id: UUID,
     use_case: FromDishka[GetUserInfoUseCase],
+    _: UUID = Depends(get_user_id),
 ):
     req = GetUserInfoRequestDTO(user_id=user_id)
     return await use_case.execute(req)
@@ -68,11 +70,15 @@ async def update_my_profile(
 
 @profile_router.put("/me/password")
 @inject
-async def change_my_profile_password():
+async def change_my_profile_password(
+    _: UUID = Depends(get_user_id),
+):
     raise HTTPException(status_code=501, detail="Not implemented")
 
 
 @profile_router.put("/me/email")
 @inject
-async def change_my_profile_email():
+async def change_my_profile_email(
+    _: UUID = Depends(get_user_id),
+):
     raise HTTPException(status_code=501, detail="Not implemented")
