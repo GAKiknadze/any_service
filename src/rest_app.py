@@ -19,9 +19,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+settings = Settings()  #type: ignore[call-arg]
+
 container = make_container(
-    DatabaseProvider(database_url=Settings().db_uri),
-    AuthProvider(secret_key=Settings().secret_key),
+    DatabaseProvider(database_url=settings.db_uri),
+    AuthProvider(secret_key=settings.secret_key),
     ProfileProvider(),
     FastapiProvider(),
 )
