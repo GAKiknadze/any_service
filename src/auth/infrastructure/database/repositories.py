@@ -64,7 +64,7 @@ class SQLAlchemyAuthUserRepository:
             db_user.email = new_email
         if new_password_hash is not None:
             db_user.password_hash = new_password_hash
-        db_user.last_modified = datetime.utcnow()
+        db_user.last_modified = datetime.now(timezone.utc)
         await self.session.commit()
         await self.session.refresh(db_user)
         return _dbuser_to_domain(db_user)
