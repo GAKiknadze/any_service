@@ -28,5 +28,5 @@ async def test_get_sessions_success(fake_session_repo):
     use_case = GetSessionsUseCase(fake_session_repo)
     request = SessionsRequestDTO(user_id=user_id)
     response = await use_case.execute(request)
-    assert isinstance(response, SessionsResponseDTO)
+    assert isinstance(response, SessionsResponseDTO)  # type: ignore[misc]
     assert len(response.root) == 2
