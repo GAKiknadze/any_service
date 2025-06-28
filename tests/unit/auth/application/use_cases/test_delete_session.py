@@ -16,7 +16,7 @@ async def test_delete_session_success(fake_session_repo):
         created_at=datetime.now(timezone.utc),
         last_login=datetime.now(timezone.utc),
     )
-    fake_session_repo.create(session)
+    await fake_session_repo.create(session)
     use_case = DeleteSessionUseCase(fake_session_repo)
     request = DeleteSessionRequestDTO(session_id=session_id)
     await use_case.execute(request)

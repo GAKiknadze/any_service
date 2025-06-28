@@ -35,7 +35,7 @@ async def test_login_invalid_password(fake_user_repo, fake_session_repo, fake_pa
     email = "test2@example.com"
     password = "password"
     password_hash = fake_password_service.hash_password(password)
-    fake_user_repo.create(AuthUser(
+    await fake_user_repo.create(AuthUser(
         id=user_id,
         email=email,
         password_hash=password_hash,
