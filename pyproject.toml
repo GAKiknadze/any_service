@@ -27,5 +27,6 @@ dev = [
 test = [
     "pytest>=8.4.1",
     "pytest-asyncio>=1.0.0",
+    "pytest-cov>=6.2.1",
     "pytest-mypy>=1.0.1",
 ]
