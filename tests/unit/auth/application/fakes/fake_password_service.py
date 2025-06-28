@@ -1,4 +1,3 @@
-
 class FakePasswordService:
     def __init__(self):
         self._hash = "hashed"

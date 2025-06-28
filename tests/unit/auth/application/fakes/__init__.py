@@ -7,5 +7,5 @@ __all__ = [
     "FakeAuthSessionRepository",
     "FakeAuthUserRepository",
     "FakePasswordService",
-    "FakeTokenService"
+    "FakeTokenService",
 ]

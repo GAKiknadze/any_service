@@ -19,7 +19,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-settings = Settings()  #type: ignore[call-arg]
+settings = Settings()  # type: ignore[call-arg]
 
 container = make_container(
     DatabaseProvider(database_url=settings.db_uri),

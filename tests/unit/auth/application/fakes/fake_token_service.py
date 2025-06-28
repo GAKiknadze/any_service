@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta, timezone
-from uuid import uuid4, UUID
+from uuid import UUID, uuid4
 
 from src.auth.domain import entities, exceptions
+
 
 class FakeTokenService:
     def __init__(self):

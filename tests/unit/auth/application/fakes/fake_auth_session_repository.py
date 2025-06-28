@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 
 from src.auth.domain import entities, exceptions
 
+
 class FakeAuthSessionRepository:
     def __init__(self):
         self.sessions = {}

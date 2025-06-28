@@ -1,10 +1,12 @@
-import pytest
-from uuid import uuid4
 from datetime import datetime, timezone
+from uuid import uuid4
 
-from src.auth.application.use_cases import DeleteSessionUseCase
+import pytest
+
 from src.auth.application.dtos import DeleteSessionRequestDTO
+from src.auth.application.use_cases import DeleteSessionUseCase
 from src.auth.domain.entities import AuthSession
+
 
 @pytest.mark.asyncio
 async def test_delete_session_success(fake_session_repo):

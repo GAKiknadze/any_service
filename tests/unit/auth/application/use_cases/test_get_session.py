@@ -1,10 +1,12 @@
-import pytest
-from uuid import uuid4
 from datetime import datetime, timezone
+from uuid import uuid4
 
-from src.auth.application.use_cases import GetSessionsUseCase
+import pytest
+
 from src.auth.application.dtos import SessionsRequestDTO, SessionsResponseDTO
+from src.auth.application.use_cases import GetSessionsUseCase
 from src.auth.domain.entities import AuthSession
+
 
 @pytest.mark.asyncio
 async def test_get_sessions_success(fake_session_repo):
