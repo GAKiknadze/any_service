@@ -25,7 +25,7 @@ class SpiceDBPermissionRepository:
         resource: entities.EntityReference,
         permission: entities.Permission,
     ) -> None:
-        self.__client.WriteRelationships(
+        await self.__client.WriteRelationships(
             WriteRelationshipsRequest(
                 updates=[
                     RelationshipUpdate(
@@ -49,7 +49,7 @@ class SpiceDBPermissionRepository:
         )
 
     async def remove_object(self, object: entities.EntityReference) -> None:
-        self.__client.DeleteRelationships(
+        await self.__client.DeleteRelationships(
             DeleteRelationshipsRequest(
                 RelationshipFilter(
                     resource_type=object.entity_type,
@@ -64,7 +64,7 @@ class SpiceDBPermissionRepository:
         resource: entities.EntityReference,
         permission: entities.Permission,
     ) -> None:
-        self.__client.DeleteRelationships(
+        await self.__client.DeleteRelationships(
             DeleteRelationshipsRequest(
                 RelationshipFilter(
                     resource_type=resource.entity_type,
@@ -84,7 +84,7 @@ class SpiceDBPermissionRepository:
         resource: entities.EntityReference,
         permission: entities.Permission,
     ) -> bool:
-        resp = self.__client.CheckPermission(
+        resp = await self.__client.CheckPermission(
             CheckPermissionRequest(
                 resource=ObjectReference(
                     object_type=resource.entity_type, object_id=resource.entity_id
