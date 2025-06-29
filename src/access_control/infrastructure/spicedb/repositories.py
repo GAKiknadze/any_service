@@ -51,7 +51,7 @@ class SpiceDBPermissionRepository:
     async def remove_object(self, object: entities.EntityReference) -> None:
         await self.__client.DeleteRelationships(
             DeleteRelationshipsRequest(
-                RelationshipFilter(
+                relationship_filter=RelationshipFilter(
                     resource_type=object.entity_type,
                     optional_resource_id=object.entity_id,
                 )
@@ -66,7 +66,7 @@ class SpiceDBPermissionRepository:
     ) -> None:
         await self.__client.DeleteRelationships(
             DeleteRelationshipsRequest(
-                RelationshipFilter(
+                relationship_filter=RelationshipFilter(
                     resource_type=resource.entity_type,
                     optional_resource_id=resource.entity_id,
                     optional_relation=permission.name,
