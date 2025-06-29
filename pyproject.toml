@@ -35,3 +35,11 @@ test = [
 
 [tool.poe.tasks]
 rest = "uvicorn src.rest_app:app --reload"
+format = [
+    { cmd = "isort ." },
+    { cmd = "ruff format ." }
+]
+check = [
+    { cmd = "ruff check ." },
+    { cmd = "mypy ." }
+]
