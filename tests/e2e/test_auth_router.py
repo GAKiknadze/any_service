@@ -1,9 +1,10 @@
-import pytest
 from uuid import uuid4
+
+import pytest
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from src.interfaces.api.v1.routers.auth import auth_router
-from fastapi import FastAPI
 
 
 @pytest.fixture(scope="module")
